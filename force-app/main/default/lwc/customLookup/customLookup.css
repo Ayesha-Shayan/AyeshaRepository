@@ -1,0 +1,4 @@
+.hideText{
+    width: 85%; 
+    text-overflow: ellipsis; 
+}

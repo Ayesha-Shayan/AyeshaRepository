@@ -1,0 +1,72 @@
+<template>
+    <template if:false={validSelectedRecord}>
+        <!-- <div class="slds-p-around_x-small"> -->
+        <c-search-component oninputchanged={handleOnchange}
+                            placeholder={placeholder} >
+        </c-search-component>
+        <!-- </div> -->
+    </template>
+    <div>
+        <template if:true={error}>
+            <template if:true={error.details}>
+                <template if:true={error.details.body}>
+                    {error.details.body.message}
+                </template>
+            </template>
+        </template>
+    </div>
+    <!-- <div 
+         style="border: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));position: absolute;width: 94%;z-index: 1000;background: white;"> -->
+    <!-- <div style="position: absolute;z-index: 1000;background: white;"> -->
+    <div style="position: relative;z-index: 1000;background: white;max-height: 20vh; overflow: auto;">
+        <template if:false={validSelectedRecord}>
+            <template if:true={records}>
+                <template for:each={records}
+                          for:item="record">
+                    <c-record-list key={record.Id}
+                                   record={record}
+                                   onselect={handleSelect}
+                                   iconname={iconname}
+                                   fieldname={searchfield}>
+                    </c-record-list>
+                </template>
+            </template>
+        </template>
+        <template if:false={validSelectedRecord}>
+        </template>
+    </div>
+    <!-- <div class="slds-p-around_x-small"> -->
+    <template if:true={validSelectedRecord}>
+        <div class="slds-combobox__form-element slds-input-has-icon
+                            slds-input-has-icon_left-right"
+             role="none">
+            <span class="slds-icon_container
+                                slds-icon-standard-account
+                                slds-combobox__input-entity-icon">
+                <lightning-icon icon-name={iconname}></lightning-icon>
+            </span>
+            <input class="slds-input slds-combobox__input
+                           slds-combobox__input-value hideText"
+                   id="combobox-id-5"
+                   aria-controls="listbox-id-5"
+                   autocomplete="off"
+                   role="textbox"
+                   type="text"
+                   placeholder="Select an Option"
+                   readonly=""
+                   value={selectedRecordName}
+                   disabled />
+            <button class="sicon_container slds-button slds-button_icon
+                                   slds-input__icon slds-input__icon_right"
+                    title="Remove selected option"
+                    onclick={handleRemove}>
+                <lightning-icon icon-name="utility:close"
+                                size="small">
+
+                </lightning-icon>
+                <span class="slds-assistive-text">Remove selected option</span>
+            </button>
+        </div>
+    </template>
+    <!-- </div> -->
+</template>
